@@ -387,80 +387,15 @@
                 padding: 1rem;
             }
             .paw-print { width: 50px !important; }
-        }<style>
-    /* ... (your existing CSS code remains unchanged above this) ... */
-
-    /* ===== ADD NEW CSS HERE ===== */
-    /* Error and No Results States */
-    .no-results, .error-message {
-        text-align: center;
-        grid-column: 1 / -1;
-        padding: 2rem;
-        color: var(--primary);
-    }
-
-    .no-results i, .error-message i {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-    }
-
-    .retry-button {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        margin-top: 1rem;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .retry-button:hover {
-        background: var(--secondary);
-    }
-
-    /* Modal Backdrop */
-    .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s;
-    }
-
-    .modal.active {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    /* ===== END OF NEW CSS ===== */
-
-    /* Keep your existing @keyframes and media queries below */
-    @keyframes fadeInUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
         }
-    }
-    
-    @media (max-width: 768px) {
-        /* ... (existing media queries) ... */
-    }
-</style>
-    </style>
+        </style>
+
+
 </head>
 <body>
-    <a href="search.js"class="search-button"></a>
+    <a href="search.js"class="search-buttons"></a>
     <!-- Back Button -->
-    <a href="main.html" class="back-button">
+    <a href="index.html" class="back-button">
         <i class="fas fa-arrow-left"></i> Back to Home
     </a>
 
