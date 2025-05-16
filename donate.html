@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice for the Voiceless - Donate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        /* Back Button */
+.back-button {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.back-button:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+            gap: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            width: 220px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .donate-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 3rem;
+        }
+        
+        .donate-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .donate-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .donation-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .donation-option {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .donation-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .amount {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .impact {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            min-height: 50px;
+        }
+        
+        .donate-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .donate-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+        
+        .custom-donation {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .custom-amount {
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--secondary);
+            border-radius: 50px;
+            font-size: 1rem;
+            width: 200px;
+            text-align: center;
+            margin-right: 1rem;
+        }
+        
+        .testimonials {
+            margin-top: 4rem;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .stat-card {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .donation-option {
+                width: 100%;
+            }
+            
+            .custom-donation {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .custom-amount {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+       <!-- Back Button -->
+<a href="main.html" class="back-button">
+    <i class="fas fa-arrow-left"></i> Back to Home
+</a>
+    <div class="container">
+        <header>
+            <h1>Make a Difference Today</h1>
+            <p>Your donation helps us rescue, rehabilitate, and rehome animals in need</p>
+        </header>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="rescued-count">0</div>
+                <div class="stat-label">Animals Rescued</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="adopted-count">0</div>
+                <div class="stat-label">Animals Adopted</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="volunteers-count">0</div>
+                <div class="stat-label">Volunteers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="countries-count">0</div>
+                <div class="stat-label">Countries Active</div>
+            </div>
+        </div>
+        
+        <div class="donate-section">
+            <div class="donate-header">
+                <h2>Choose Your Impact</h2>
+                <p>Every dollar makes a difference in an animal's life</p>
+            </div>
+            
+            <div class="donation-options">
+                <div class="donation-option">
+                    <div class="amount">₹250</div>
+                    <div class="impact">Provides food and shelter for one animal for a week</div>
+                    <button class="donate-btn">Donate Now</button>
+                </div>
+                
+                <div class="donation-option">
+                    <div class="amount">₹500</div>
+                    <div class="impact">Covers medical treatment for a rescued animal</div>
+                    <button class="donate-btn">Donate Now</button>
+                </div>
+                
+                <div class="donation-option">
+                    <div class="amount">₹1000</div>
+                    <div class="impact">Sponsors a full rescue operation</div>
+                    <button class="donate-btn">Donate Now</button>
+                </div>
+            </div>
+            
+            <div class="custom-donation">
+                <h3>Or enter a custom amount</h3>
+                <input type="number" class="custom-amount" placeholder="₹ Enter amount">
+                <button class="donate-btn" style="max-width: 200px; margin-top: 1rem;">Donate Custom Amount</button>
+            </div>
+        </div>
+        
+        <div class="testimonials">
+            <h2>Success Stories</h2>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Thanks to donations like yours, we rescued 15 dogs from an abandoned property last month. They're all now in loving homes!"</p>
+                <p class="testimonial-author">- Sarah, Rescue Team Lead</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Your support helped us provide life-saving surgery to Luna, a stray cat hit by a car. She's now thriving with her new family."</p>
+                <p class="testimonial-author">- Dr. Rodriguez, Veterinarian</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Animated counter for statistics
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Initialize counters when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            animateValue("rescued-count", 0, 1243, 2000);
+            animateValue("adopted-count", 0, 987, 2000);
+            animateValue("volunteers-count", 0, 215, 2000);
+            animateValue("countries-count", 0, 12, 2000);
+            
+            // Donation button functionality
+            document.querySelectorAll('.donate-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    let amount = '';
+                    
+                    if (this.textContent.includes('Custom')) {
+                        amount = document.querySelector('.custom-amount').value;
+                        if (!amount) {
+                            alert('Please enter a donation amount');
+                            return;
+                        }
+                    } else {
+                        amount = this.parentElement.querySelector('.amount').textContent;
+                    }
+                    
+                    alert(`Thank you for your donation of ₹₹{amount}! Your support helps save animal lives.`);
+                    
+                    // In a real implementation, you would redirect to payment processor here
+                    // window.location.href = `/donate?amount=${amount}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

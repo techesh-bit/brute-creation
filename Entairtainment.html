@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entertainment - Voice for the Voiceless</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* Back Button */
+.back-button {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.back-button:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+        .header {
+            text-align: center;
+            margin: 5vh 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 5vh;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.4s;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item:hover {
+            color: var(--light);
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+        }
+        
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .video-info {
+            padding: 1.5rem;
+        }
+        
+        .video-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .video-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .games {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .game-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--dark);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav { gap: 1rem; }
+            .videos, .games {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+       <!-- Back Button -->
+<a href="main.html" class="back-button">
+    <i class="fas fa-arrow-left"></i> Back to Home
+</a>
+    <div class="header">
+        <div class="title">Animal Entertainment</div>
+        <div class="subtitle">Fun & Education</div>
+    </div>
+    
+    <div class="content">
+        <section class="videos-section">
+            <h2 class="section-title">Educational Videos</h2>
+            <div class="videos">
+                <div class="video-card">
+                    <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Animal video" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">How to Care for Rescue Dogs</h3>
+                        <p class="video-desc">Learn the basics of caring for dogs who have been rescued from difficult situations.</p>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <img src="https://i.ytimg.com/vi/oHg5SJYRHA0/hqdefault.jpg" alt="Animal video" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">Cat Behavior Explained</h3>
+                        <p class="video-desc">Understand what your cat is trying to tell you through their behavior.</p>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <img src="https://i.ytimg.com/vi/J---aiyznGQ/hqdefault.jpg" alt="Animal video" class="video-thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">Wildlife Rehabilitation</h3>
+                        <p class="video-desc">See how professionals help injured wild animals recover and return to nature.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="games-section">
+            <h2 class="section-title">Fun Games</h2>
+            <div class="games">
+                <div class="game-card">
+                    <div class="game-icon"><i class="fas fa-dog"></i></div>
+                    <h3 class="game-title">Pet Match</h3>
+                    <p class="video-desc">Match pets with their perfect owners in this fun memory game.</p>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-icon"><i class="fas fa-cat"></i></div>
+                    <h3 class="game-title">Vet Simulator</h3>
+                    <p class="video-desc">Play as a veterinarian helping animals in need.</p>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-icon"><i class="fas fa-paw"></i></div>
+                    <h3 class="game-title">Animal Quiz</h3>
+                    <p class="video-desc">Test your knowledge about different animal species.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div class="footer">
+        &copy; 2023 Voice for the Voiceless. All rights reserved.
+    </div>
+</body>
+</html>

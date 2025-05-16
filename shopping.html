@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop for a Cause - Animal Rescue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin: 2rem;
+            padding: 0.5rem 1rem;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .products-header {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .add-to-cart {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .products-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="main.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+    
+    <div class="products-header">
+        <h1>Shop for a Cause</h1>
+        <p>Every purchase helps support animal rescue efforts</p>
+    </div>
+    
+    <div class="products-container">
+        <div class="product-card">
+            <img src="C:\Users\prathamesh\OneDrive\Desktop\food.jpg" alt="Dog Food" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">Premium Dog Food</h3>
+                <p class="product-description">Healthy nutrition for your rescue dog</p>
+                <span class="product-price">₹240.99</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-card">
+            <img src="C:\Users\prathamesh\OneDrive\Desktop\tree.jpg" alt="Cat Tree" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">Cat Climbing Tree</h3>
+                <p class="product-description">Perfect for playful rescue cats</p>
+                <span class="product-price">₹2999.99</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-card">
+            <img src="C:\Users\prathamesh\OneDrive\Desktop\t shirt.jpg" alt="Animal Rescue T-Shirt" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">paw print T-Shirt</h3>
+                <p class="product-description">Show your support for animal rescue</p>
+                <span class="product-price">₹319.99</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-card">
+            <img src="C:\Users\prathamesh\OneDrive\Desktop\pet carrier.jpeg" alt="Pet Carrier" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">Portable Pet Carrier</h3>
+                <p class="product-description">Safe transport for small animals</p>
+                <span class="product-price">₹734.99</span>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const product = this.closest('.product-card');
+                const title = product.querySelector('.product-title').textContent;
+                const price = product.querySelector('.product-price').textContent;
+                
+                alert(`Added to cart: ${title} (${price})`);
+                
+                // In a real app, you would add to a cart array or send to backend
+            });
+        });
+    </script>
+</body>
+</html>

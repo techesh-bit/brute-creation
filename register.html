@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Voice for the Voiceless</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url('https://images.unsplash.com/photo-1455103493930-a116f655b6c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            background-color: rgba(117, 152, 117, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+                .back-button {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.back-button:hover{
+ 
+    background: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        .register-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out;
+        }
+    }
+        .register-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .register-header h1 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .register-header p {
+            color: #666;
+        }
+        
+        .register-form .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .register-form .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .register-form .form-group input,
+        .register-form .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .register-form .form-group input:focus,
+        .register-form .form-group select:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+            outline: none;
+        }
+        
+        .name-fields {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .name-fields .form-group {
+            flex: 1;
+        }
+        
+        .password-strength {
+            height: 5px;
+            background: #eee;
+            border-radius: 5px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .strength-meter {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background 0.3s;
+        }
+        
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .terms input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .terms a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+        }
+        
+        .register-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .register-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .login-link {
+            text-align: center;
+            color: #666;
+        }
+        
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .paw-print {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .paw1 { top: 10%; left: 5%; width: 80px; animation-delay: 0s; }
+        .paw2 { top: 70%; right: 8%; width: 60px; animation-delay: 1s; }
+        .paw3 { bottom: 20%; left: 15%; width: 50px; animation-delay: 2s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 30px 20px;
+            }
+            
+            .register-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .name-fields {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+        <a href="main.html" class="back-button">
+    <i class="fas fa-arrow-left"></i> Back to Home
+</a>
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw1" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw2" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw3" alt="Paw print">
+    
+    <div class="register-container">
+        <div class="register-header">
+            <h1>Join Our Mission</h1>
+            <p>Create an account to help animals in need</p>
+        </div>
+        
+        <form class="register-form">
+            <div class="name-fields">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" placeholder="Enter your first name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" placeholder="Enter your last name" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password" required>
+                <div class="password-strength">
+                    <div class="strength-meter" id="strength-meter"></div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="user-type">How will you help?</label>
+                <select id="user-type" required>
+                    <option value="" disabled selected>Select your role</option>
+                    <option value="adopter">I want to adopt animals</option>
+                    <option value="volunteer">I want to volunteer</option>
+                    <option value="donor">I want to donate</option>
+                    <option value="foster">I want to foster animals</option>
+                </select>
+            </div>
+            
+            <div class="terms">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a></label>
+            </div>
+            
+            <button type="submit" class="register-btn">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+            
+            <div class="login-link">
+                Already have an account? <a href="login.html">Login here</a>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // Password strength indicator
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthMeter = document.getElementById('strength-meter');
+            let strength = 0;
+            
+            // Check for length
+            if (password.length >= 8) strength += 1;
+            if (password.length >= 12) strength += 1;
+            
+            // Check for character variety
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+            
+            // Update strength meter
+            const width = strength * 20;
+            let color;
+            
+            if (strength <= 1) color = '#FF6B6B'; // Weak
+            else if (strength <= 3) color = '#FFD166'; // Medium
+            else color = '#06D6A0'; // Strong
+            
+            strengthMeter.style.width = width + '%';
+            strengthMeter.style.background = color;
+        });
+        
+        // Form submission handling
+        document.querySelector('.register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const userType = document.getElementById('user-type').value;
+            
+            // Validate password match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Validate terms checkbox
+            if (!document.getElementById('terms').checked) {
+                alert('You must agree to the terms and conditions');
+                return;
+            }
+            
+            // Here you would typically send to server
+            console.log('Registration submitted:', {
+                firstName,
+                lastName,
+                email,
+                password,
+                userType
+            });
+            
+            // For demo purposes, just show an alert
+            alert(`Thank you for registering, ${firstName}!\n\nAccount details would be sent to your email.\n\nRole: ${userType}`);
+            
+            // In a real implementation, you would:
+            // 1. Validate all inputs
+            // 2. Send to registration API
+            // 3. Handle response (redirect on success, show error on failure)
+        });
+        
+        // Animation for paw prints
+        document.addEventListener('DOMContentLoaded', function() {
+            const paws = document.querySelectorAll('.paw-print');
+            
+            paws.forEach((paw, index) => {
+                paw.style.opacity = '0';
+                paw.style.transform = 'translateY(20px)';
+                paw.style.animation = `fadeInUp 0.5s ${index * 0.2}s forwards, float 6s ${index * 0.2}s infinite ease-in-out`;
+            });
+        });
+    </script>
+</body>
+</html>

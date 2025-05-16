@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Animals - Voice for the Voiceless</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url('https://images.unsplash.com/photo-1455103493930-a116f655b6c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            background-color: rgba(247, 255, 247, 0.85);
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .header {
+            text-align: center;
+            margin: 15vh 0 5vh;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.3s forwards;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            color: var(--primary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.5s forwards;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .paw-print {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .paw1 { top: 10%; left: 5%; width: 80px; animation-delay: 0s; }
+        .paw2 { top: 70%; right: 8%; width: 60px; animation-delay: 1s; }
+        .paw3 { bottom: 20%; left: 15%; width: 50px; animation-delay: 2s; }
+        
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 8vh;
+            padding: 0 2rem;
+        }
+        
+        .search-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 1.5s forwards;
+            backdrop-filter: blur(5px);
+        }
+        
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-input {
+            flex-grow: 1;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+        }
+        
+        .search-button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .search-button:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-button {
+            background: white;
+            color: var(--dark);
+            border: 2px solid #eee;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .filter-button:hover, .filter-button.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .search-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .animal-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        
+        .animal-card:nth-child(1) { animation-delay: 1.7s; }
+        .animal-card:nth-child(2) { animation-delay: 1.9s; }
+        .animal-card:nth-child(3) { animation-delay: 2.1s; }
+        .animal-card:nth-child(4) { animation-delay: 2.3s; }
+        
+        .animal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        
+        .animal-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .animal-info {
+            padding: 1.5rem;
+        }
+        
+        .animal-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .animal-details {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .animal-description {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .animal-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .trait {
+            background: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: #444;
+        }
+        
+        .view-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .view-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .modal-subtitle {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-section-title {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.3rem;
+        }
+        
+        .modal-text {
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--dark);
+            opacity: 0.9;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.9);
+            margin-top: 5vh;
+        }
+        
+        .animal {
+            position: absolute;
+            width: 60px;
+            opacity: 0.7;
+            animation: float 4s infinite ease-in-out;
+        }
+        
+        .dog { bottom: -30px; left: 10%; animation-delay: 0.5s; animation-duration: 5s; }
+        .cat { top: 20%; right: 8%; animation-delay: 1s; animation-duration: 4.5s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @media (max-width: 768px) {
+            .search-form {
+                flex-direction: column;
+            }
+            .search-button {
+                padding: 1rem;
+            }
+            .paw-print { width: 50px !important; }
+        }<style>
+    /* ... (your existing CSS code remains unchanged above this) ... */
+
+    /* ===== ADD NEW CSS HERE ===== */
+    /* Error and No Results States */
+    .no-results, .error-message {
+        text-align: center;
+        grid-column: 1 / -1;
+        padding: 2rem;
+        color: var(--primary);
+    }
+
+    .no-results i, .error-message i {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .retry-button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        margin-top: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .retry-button:hover {
+        background: var(--secondary);
+    }
+
+    /* Modal Backdrop */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+
+    .modal.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    /* ===== END OF NEW CSS ===== */
+
+    /* Keep your existing @keyframes and media queries below */
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        /* ... (existing media queries) ... */
+    }
+</style>
+    </style>
+</head>
+<body>
+    <a href="search.js"class="search-button"></a>
+    <!-- Back Button -->
+    <a href="main.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw1" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw2" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw3" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="animal dog" alt="Dog">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616421.png" class="animal cat" alt="Cat">
+    
+    <div class="header">
+        <div class="title">Find Animals</div>
+        <div class="subtitle">Search for Your New Friend</div>
+    </div>
+    
+    <div class="search-container">
+        <div class="search-box">
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="Search by name, breed, or location...">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+            
+            <div class="filter-options">
+                <button class="filter-button active">All</button>
+                <button class="filter-button">Dogs</button>
+                <button class="filter-button">Cats</button>
+                <button class="filter-button">Small Pets</button>
+                <button class="filter-button">Other</button>
+            </div>
+            
+            <div class="filter-options">
+                <button class="filter-button">Puppies</button>
+                <button class="filter-button">Young</button>
+                <button class="filter-button">Adult</button>
+                <button class="filter-button">Senior</button>
+            </div>
+        </div>
+        
+        <div class="search-results">
+            <!-- Animal Card 1 -->
+            <div class="animal-card">
+                <img src="https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb" class="animal-image" alt="Golden Retriever">
+                <div class="animal-info">
+                    <h3 class="animal-name">Max</h3>
+                    <p class="animal-details">Golden Retriever • 2 years • Male</p>
+                    <div class="animal-traits">
+                        <span class="trait">Friendly</span>
+                        <span class="trait">Playful</span>
+                        <span class="trait">Good with kids</span>
+                    </div>
+                    <p class="animal-description">Max is a loving Golden Retriever with a heart of gold. He's great with children and other pets, and loves playing fetch in the park.</p>
+                    <a href="#" class="view-button" onclick="openModal('max')">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Animal Card 2 -->
+            <div class="animal-card">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba" class="animal-image" alt="Tabby Cat">
+                <div class="animal-info">
+                    <h3 class="animal-name">Luna</h3>
+                    <p class="animal-details">Tabby Cat • 1 year • Female</p>
+                    <div class="animal-traits">
+                        <span class="trait">Curious</span>
+                        <span class="trait">Affectionate</span>
+                        <span class="trait">Independent</span>
+                    </div>
+                    <p class="animal-description">Luna is a sweet tabby who enjoys sunny spots and gentle pets. She's playful but also values her alone time.</p>
+                    <a href="#" class="view-button" onclick="openModal('luna')">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Animal Card 3 -->
+            <div class="animal-card">
+                <img src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2" class="animal-image" alt="Beagle">
+                <div class="animal-info">
+                    <h3 class="animal-name">Buddy</h3>
+                    <p class="animal-details">Beagle • 4 years • Male</p>
+                    <div class="animal-traits">
+                        <span class="trait">Energetic</span>
+                        <span class="trait">Vocal</span>
+                        <span class="trait">Loyal</span>
+                    </div>
+                    <p class="animal-description">Buddy is a typical beagle - full of energy and always ready for adventure. He loves long walks and has a great nose for treats!</p>
+                    <a href="#" class="view-button" onclick="openModal('buddy')">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Animal Card 4 -->
+            <div class="animal-card">
+                <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce" class="animal-image" alt="Siamese Cat">
+                <div class="animal-info">
+                    <h3 class="animal-name">Milo</h3>
+                    <p class="animal-details">Siamese Cat • 3 years • Male</p>
+                    <div class="animal-traits">
+                        <span class="trait">Talkative</span>
+                        <span class="trait">Intelligent</span>
+                        <span class="trait">Social</span>
+                    </div>
+                    <p class="animal-description">Milo is a beautiful Siamese who loves to "talk" to his humans. He's very social and will follow you around the house.</p>
+                    <a href="#" class="view-button" onclick="openModal('milo')">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Max -->
+    <div id="max-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('max-modal')">&times;</span>
+            <img src="https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb" class="modal-image" alt="Max the Golden Retriever">
+            <h2 class="modal-title">Max</h2>
+            <h3 class="modal-subtitle">Golden Retriever • 2 years • Male</h3>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">About Me</h4>
+                <p class="modal-text">
+                    Max is a purebred Golden Retriever with a beautiful golden coat and the sweetest temperament. 
+                    He was surrendered to our shelter when his previous family moved overseas. Max is fully 
+                    house-trained and knows basic commands like sit, stay, and paw. He's exceptionally gentle 
+                    with children and gets along well with other dogs. His favorite activities include playing 
+                    fetch, swimming, and cuddling on the couch.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Health Information</h4>
+                <p class="modal-text">
+                    <strong>Vaccinations:</strong> Up to date on all vaccinations including rabies, distemper, and bordetella.<br>
+                    <strong>Spay/Neuter:</strong> Neutered<br>
+                    <strong>Health Notes:</strong> Max is in excellent health with no known medical issues. He's on a regular flea/tick and heartworm prevention regimen.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Behavior & Personality</h4>
+                <p class="modal-text">
+                    Max is the epitome of the Golden Retriever personality - friendly, outgoing, and eager to please. 
+                    He's moderately active and would do well in a home with a yard, though he adapts well to apartment 
+                    living with sufficient exercise. Max has a medium energy level and enjoys two 30-minute walks per 
+                    day plus playtime. He's not destructive when left alone and is generally quiet, only barking when 
+                    someone comes to the door.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Adoption Requirements</h4>
+                <p class="modal-text">
+                    - Secure fenced yard preferred but not required<br>
+                    - Active family willing to provide daily exercise<br>
+                    - No other pets required (gets along with all)<br>
+                    - Children of all ages welcome<br>
+                    - Adoption fee: $250 (includes microchip)
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Luna -->
+    <div id="luna-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('luna-modal')">&times;</span>
+            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba" class="modal-image" alt="Luna the Tabby Cat">
+            <h2 class="modal-title">Luna</h2>
+            <h3 class="modal-subtitle">Tabby Cat • 1 year • Female</h3>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">About Me</h4>
+                <p class="modal-text">
+                    Luna is a stunning brown tabby with distinctive markings and bright green eyes. She was found as 
+                    a stray kitten and has blossomed into a beautiful young cat. Luna is the perfect mix of playful 
+                    and cuddly - she'll chase toys with kitten-like energy but also loves curling up in your lap. 
+                    She's very clean with her litter box habits and enjoys watching birds from the window.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Health Information</h4>
+                <p class="modal-text">
+                    <strong>Vaccinations:</strong> Fully vaccinated including FVRCP and rabies<br>
+                    <strong>Spay/Neuter:</strong> Spayed<br>
+                    <strong>Health Notes:</strong> Excellent health, negative for FIV/FeLV. On monthly flea prevention.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Behavior & Personality</h4>
+                <p class="modal-text">
+                    Luna has a wonderful personality - she's curious about everything but not overly mischievous. 
+                    She enjoys interactive play with feather toys and laser pointers. Luna is moderately affectionate 
+                    - she'll seek attention on her own terms but isn't overly demanding. She does well with gentle 
+                    children and could potentially live with another cat if introduced properly. Luna would do well 
+                    in most home environments as long as she has vertical spaces to climb and cozy spots to nap.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Adoption Requirements</h4>
+                <p class="modal-text">
+                    - Indoor-only home<br>
+                    - Scratching post provided<br>
+                    - Regular playtime encouraged<br>
+                    - Adoption fee: $100 (includes microchip)
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Buddy -->
+    <div id="buddy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('buddy-modal')">&times;</span>
+            <img src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2" class="modal-image" alt="Buddy the Beagle">
+            <h2 class="modal-title">Buddy</h2>
+            <h3 class="modal-subtitle">Beagle • 4 years • Male</h3>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">About Me</h4>
+                <p class="modal-text">
+                    Buddy is a classic tricolor Beagle with the breed's signature floppy ears and soulful eyes. 
+                    He was surrendered when his owner could no longer care for him. Buddy has all the wonderful 
+                    Beagle traits - he's friendly, curious, and full of energy. His nose is always to the ground 
+                    following interesting scents. Buddy knows basic commands and walks well on leash (though he'll 
+                    pull when he catches an exciting smell). He's crate trained and housebroken.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Health Information</h4>
+                <p class="modal-text">
+                    <strong>Vaccinations:</strong> Current on all vaccines<br>
+                    <strong>Spay/Neuter:</strong> Neutered<br>
+                    <strong>Health Notes:</strong> Healthy weight, no known issues. On heartworm and flea prevention.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Behavior & Personality</h4>
+                <p class="modal-text">
+                    Buddy is a typical Beagle - food motivated, vocal, and endlessly curious. He would do best in 
+                    a home with a secure fence as he will follow his nose. Buddy enjoys puzzle toys stuffed with 
+                    treats and long sniffari walks. He's friendly with everyone he meets and gets along well with 
+                    other dogs. Buddy does have a Beagle's voice and will bay when excited, so apartment living 
+                    might not be ideal unless his exercise needs are thoroughly met.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Adoption Requirements</h4>
+                <p class="modal-text">
+                    - Secure fenced yard required<br>
+                    - Active family who enjoys walking<br>
+                    - Experience with scent hounds preferred<br>
+                    - Adoption fee: $200 (includes microchip)
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Milo -->
+    <div id="milo-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('milo-modal')">&times;</span>
+            <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce" class="modal-image" alt="Milo the Siamese Cat">
+            <h2 class="modal-title">Milo</h2>
+            <h3 class="modal-subtitle">Siamese Cat • 3 years • Male</h3>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">About Me</h4>
+                <p class="modal-text">
+                    Milo is a stunning seal point Siamese with striking blue eyes. He was surrendered when his 
+                    owner developed allergies. True to his breed, Milo is extremely vocal and will carry on 
+                    conversations with his humans. He's very intelligent and can even learn simple tricks. 
+                    Milo forms strong bonds with his people and prefers to be involved in all household activities. 
+                    He has the classic Siamese personality - affectionate, demanding, and highly social.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Health Information</h4>
+                <p class="modal-text">
+                    <strong>Vaccinations:</strong> Up to date on all vaccines<br>
+                    <strong>Spay/Neuter:</strong> Neutered<br>
+                    <strong>Health Notes:</strong> Healthy, negative for FIV/FeLV. No known health issues.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Behavior & Personality</h4>
+                <p class="modal-text">
+                    Milo is a quintessential "people cat" who wants to be where the action is. He'll follow you 
+                    from room to room and "help" with whatever you're doing. Milo enjoys interactive play and 
+                    puzzle toys that challenge his intelligence. He can be possessive of his favorite humans and 
+                    does best as an only pet. Milo would thrive in a home where someone is present much of the 
+                    day - he doesn't do well being left alone for long periods. His ideal home would have cat trees 
+                    by windows for bird watching and plenty of cozy spots to nap near his humans.
+                </p>
+            </div>
+            
+            <div class="modal-section">
+                <h4 class="modal-section-title">Adoption Requirements</h4>
+                <p class="modal-text">
+                    - Indoor-only home<br>
+                    - No other pets preferred<br>
+                    - Family that enjoys an interactive cat<br>
+                    - Adoption fee: $150 (includes microchip)
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        &copy; 2023 Voice for the Voiceless. All rights reserved.
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Parallax effect on scroll
+            window.addEventListener('scroll', function() {
+                const scrollY = window.scrollY;
+                const paws = document.querySelectorAll('.paw-print');
+                
+                paws.forEach((paw, index) => {
+                    const speed = 0.1 + (index * 0.05);
+                    const yPos = -(scrollY * speed);
+                    paw.style.transform = `translateY(${yPos}px) rotate(${scrollY * 0.1}deg)`;
+                });
+            });
+            
+            // Filter button functionality
+            const filterButtons = document.querySelectorAll('.filter-button');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    // Here you would add actual filtering logic
+                });
+            });
+            
+            // Search form functionality
+            const searchForm = document.querySelector('.search-form');
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const searchInput = document.querySelector('.search-input');
+                // Here you would add actual search functionality
+                console.log('Searching for:', searchInput.value);
+            });
+        });
+        
+        // Modal functions
+        function openModal(animalId) {
+            document.getElementById(`${animalId}-modal`).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopt a Pet - Voice for the Voiceless</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Copy all CSS from main.html */
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* Back Button */
+.back-button {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.back-button:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+        .header {
+            text-align: center;
+            margin: 5vh 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.3s forwards;
+        }
+        
+        .subtitle {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            color: var(--primary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+        
+        .paw-print {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .paw1 { top: 10%; left: 5%; width: 80px; animation-delay: 0s; }
+        .paw2 { top: 70%; right: 8%; width: 60px; animation-delay: 1s; }
+        .paw3 { bottom: 20%; left: 15%; width: 50px; animation-delay: 2s; }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 5vh;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.4s;
+            opacity: 0;
+            transform: translateY(20px);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item:nth-child(1) { animation: fadeInUp 0.8s 0.7s forwards; }
+        .nav-item:nth-child(2) { animation: fadeInUp 0.8s 0.9s forwards; }
+        .nav-item:nth-child(3) { animation: fadeInUp 0.8s 1.1s forwards; }
+        .nav-item:nth-child(4) { animation: fadeInUp 0.8s 1.3s forwards; }
+        
+        .nav-item:hover, .nav-item.active {
+            color: var(--light);
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+        }
+        
+        /* Hero Section - Matching main page */
+        .hero {
+            background: linear-gradient(135deg, rgba(255,107,107,0.1) 0%, rgba(78,205,196,0.1) 100%);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 0 auto 3rem;
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--dark);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .hero-button:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+        }
+        
+        /* Pets Grid Section */
+        .pets-section {
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            color: var(--dark);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pet-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .pet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .pet-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .pet-info {
+            padding: 1.5rem;
+        }
+        
+        .pet-name {
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pet-details {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .pet-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .pet-icon {
+            color: var(--secondary);
+        }
+        
+        .adopt-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .adopt-button:hover {
+            background: var(--secondary);
+        }
+        
+        /* Process Section */
+        .process-section {
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .process-step {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--dark);
+            color: white;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-link:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @media (max-width: 768px) {
+            .nav { gap: 1rem; }
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .pets-grid, .process-steps {
+                grid-template-columns: 1fr;
+            }
+            .paw-print { width: 50px !important; }
+        }
+    </style>
+</head>
+<body>
+       <!-- Back Button -->
+<a href="main.html" class="back-button">
+    <i class="fas fa-arrow-left"></i> Back to Home
+</a>
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw1" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw2" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw3" alt="Paw print">
+    
+    <div class="header">
+        <div class="title">Find Your Perfect Companion</div>
+        <div class="subtitle">Adopt, Don't Shop</div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2 class="hero-title">Give a Pet a Loving Home</h2>
+        <p class="hero-subtitle">Our shelter has wonderful animals waiting for their forever families. Browse our available pets and start your adoption journey today.</p>
+        <a href="#available-pets" class="hero-button">View Available Pets</a>
+    </section>
+    
+    <!-- Available Pets Section -->
+    <section class="pets-section" id="available-pets">
+        <div class="section-header">
+            <h2 class="section-title">Pets Waiting for You</h2>
+            <p class="section-subtitle">Each of these amazing animals is ready to become part of your family.</p>
+        </div>
+        
+        <div class="pets-grid">
+            <div class="pet-card">
+                <img src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Dog" class="pet-image">
+                <div class="pet-info">
+                    <h3 class="pet-name">Max</h3>
+                    <div class="pet-details">
+                        <span class="pet-detail"><i class="fas fa-dog pet-icon"></i> Dog</span>
+                        <span class="pet-detail"><i class="fas fa-birthday-cake pet-icon"></i> 2 years</span>
+                        <span class="pet-detail"><i class="fas fa-mars pet-icon"></i> Male</span>
+                    </div>
+                    <p>Friendly and energetic Labrador mix who loves playing fetch.</p>
+                    <a href="#" class="adopt-button">Adopt Max</a>
+                </div>
+            </div>
+            
+            <div class="pet-card">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cat" class="pet-image">
+                <div class="pet-info">
+                    <h3 class="pet-name">Luna</h3>
+                    <div class="pet-details">
+                        <span class="pet-detail"><i class="fas fa-cat pet-icon"></i> Cat</span>
+                        <span class="pet-detail"><i class="fas fa-birthday-cake pet-icon"></i> 1 year</span>
+                        <span class="pet-detail"><i class="fas fa-venus pet-icon"></i> Female</span>
+                    </div>
+                    <p>Gentle tabby who enjoys cuddles and sunny windowsills.</p>
+                    <a href="#" class="adopt-button">Adopt Luna</a>
+                </div>
+            </div>
+            
+            <div class="pet-card">
+                <img src="https://images.unsplash.com/photo-1559070136-d0c0a0a0a7f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Rabbit" class="pet-image">
+                <div class="pet-info">
+                    <h3 class="pet-name">Bella</h3>
+                    <div class="pet-details">
+                        <span class="pet-detail"><i class="fas fa-paw pet-icon"></i> Rabbit</span>
+                        <span class="pet-detail"><i class="fas fa-birthday-cake pet-icon"></i> 6 months</span>
+                        <span class="pet-detail"><i class="fas fa-venus pet-icon"></i> Female</span>
+                    </div>
+                    <p>Sweet little bunny who loves fresh veggies and gentle pets.</p>
+                    <a href="#" class="adopt-button">Adopt Bella</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Adoption Process Section -->
+    <section class="process-section">
+        <div class="section-header">
+            <h2 class="section-title">Our Adoption Process</h2>
+            <p class="section-subtitle">We make the adoption process simple and rewarding</p>
+        </div>
+        
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Find Your Match</h3>
+                <p>Browse our available pets online or visit our shelter to meet them in person.</p>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Submit Application</h3>
+                <p>Complete our simple adoption application form with your details.</p>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Meet & Greet</h3>
+                <p>Schedule a visit to spend quality time with your potential new pet.</p>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3 class="step-title">Bring Them Home</h3>
+                <p>Complete the paperwork and welcome your new family member!</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="main.html" class="footer-link">Home</a>
+            <a href="search.html" class="footer-link">Search</a>
+            <a href="rescue.html" class="footer-link">Rescue</a>
+            <a href="#" class="footer-link">Adopt</a>
+            <a href="#" class="footer-link">About Us</a>
+            <a href="#" class="footer-link">Contact</a>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <p class="copyright">&copy; 2023 Voice for the Voiceless. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Parallax effect on scroll
+            window.addEventListener('scroll', function() {
+                const scrollY = window.scrollY;
+                const paws = document.querySelectorAll('.paw-print');
+                
+                paws.forEach((paw, index) => {
+                    const speed = 0.1 + (index * 0.05);
+                    const yPos = -(scrollY * speed);
+                    paw.style.transform = `translateY(${yPos}px) rotate(${scrollY * 0.1}deg)`;
+                });
+            });
+
+            // Adopt button functionality
+            document.querySelectorAll('.adopt-button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const petName = this.closest('.pet-card').querySelector('.pet-name').textContent;
+                    alert(`Thank you for your interest in adopting ${petName}! Our team will contact you shortly.`);
+                });
+            });
+
+            // Highlight current page in navigation
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-item').forEach(item => {
+                if (item.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

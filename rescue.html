@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rescue Resources - Voice for the Voiceless</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* Back Button */
+.back-button {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.back-button:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+        
+        .header {
+            text-align: center;
+            margin: 5vh 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.3s forwards;
+        }
+        
+        .subtitle {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            color: var(--primary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+        
+        .paw-print {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .paw1 { top: 10%; left: 5%; width: 80px; animation-delay: 0s; }
+        .paw2 { top: 70%; right: 8%; width: 60px; animation-delay: 1s; }
+        .paw3 { bottom: 20%; left: 15%; width: 50px; animation-delay: 2s; }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 5vh;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.4s;
+            opacity: 0;
+            transform: translateY(20px);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item:nth-child(1) { animation: fadeInUp 0.8s 0.7s forwards; }
+        .nav-item:nth-child(2) { animation: fadeInUp 0.8s 0.9s forwards; }
+        .nav-item:nth-child(3) { animation: fadeInUp 0.8s 1.1s forwards; }
+        .nav-item:nth-child(4) { animation: fadeInUp 0.8s 1.3s forwards; }
+        
+        .nav-item:hover {
+            color: var(--light);
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+        }
+        
+        .rescue-container {
+            max-width: 1000px;
+            margin: 0 auto 8vh;
+            padding: 0 2rem;
+        }
+        
+        .emergency-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 1.5s forwards;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .emergency-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .contact-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .contact-info {
+            color: #666;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-icon {
+            color: var(--secondary);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .action-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .action-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .guide-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 1.7s forwards;
+        }
+        
+        .guide-steps {
+            list-style-type: none;
+        }
+        
+        .guide-steps li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .guide-steps li:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number {
+            background: var(--secondary);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .step-content {
+            flex-grow: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .step-desc {
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        .resources-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 1.9s forwards;
+        }
+        
+        .resource-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .resource-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .resource-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .resource-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        /* New Rescue Form Styles */
+        .rescue-form-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 2.1s forwards;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .form-submit:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .location-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .map-container {
+            height: 250px;
+            margin-top: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--dark);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        .animal {
+            position: absolute;
+            width: 60px;
+            opacity: 0.7;
+            animation: float 4s infinite ease-in-out;
+        }
+        
+        .dog { bottom: -30px; left: 10%; animation-delay: 0.5s; animation-duration: 5s; }
+        .cat { top: 20%; right: 8%; animation-delay: 1s; animation-duration: 4.5s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @media (max-width: 768px) {
+            .nav { gap: 1rem; }
+            .emergency-contacts, .resource-list {
+                grid-template-columns: 1fr;
+            }
+            .paw-print { width: 50px !important; }
+            .location-fields {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body> 
+           <!-- Back Button -->
+<a href="main.html" class="back-button">
+    <i class="fas fa-arrow-left"></i> Back to Home
+</a>
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw1" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw2" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="paw-print paw3" alt="Paw print">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="animal dog" alt="Dog">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616421.png" class="animal cat" alt="Cat">
+    
+    <div class="header">
+        <div class="title">Rescue Resources</div>
+        <div class="subtitle">Help Animals in Need</div>
+    </div>
+    
+    <div class="rescue-container">
+        <div class="rescue-form-section">
+            <h2 class="section-title"><i class="fas fa-exclamation-circle"></i> Report a Rescue</h2>
+            <form id="rescueForm">
+                <div class="form-group">
+                    <label for="animalType" class="form-label">Animal Type</label>
+                    <select id="animalType" class="form-select" required>
+                        <option value="">Select animal type</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                        <option value="bird">Bird</option>
+                        <option value="wildlife">Wildlife</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="situation" class="form-label">Situation Description</label>
+                    <textarea id="situation" class="form-textarea" placeholder="Describe the animal's condition and situation..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <div class="location-fields">
+                        <div>
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" id="address" class="form-input" placeholder="Street address" required>
+                        </div>
+                        <div>
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" id="city" class="form-input" placeholder="City" required>
+                        </div>
+                        <div>
+                            <label for="state" class="form-label">State/Region</label>
+                            <input type="text" id="state" class="form-input" placeholder="State/Region" required>
+                        </div>
+                        <div>
+                            <label for="zip" class="form-label">ZIP/Postal Code</label>
+                            <input type="text" id="zip" class="form-input" placeholder="ZIP/Postal Code">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="urgency" class="form-label">Urgency Level</label>
+                    <select id="urgency" class="form-select" required>
+                        <option value="low">Low - Animal is safe but needs help</option>
+                        <option value="medium">Medium - Animal is in mild distress</option>
+                        <option value="high">High - Animal is in immediate danger</option>
+                        <option value="emergency">Emergency - Life-threatening situation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactInfo" class="form-label">Your Contact Information</label>
+                    <input type="text" id="contactInfo" class="form-input" placeholder="Phone or email (optional)">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Location Map</label>
+                    <div class="map-container">
+                        <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: var(--primary);"></i>
+                        <span style="margin-left: 0.5rem;">Map will appear here</span>
+                    </div>
+                    <button type="button" class="action-button" style="margin-top: 0.5rem;" onclick="getLocation()">
+                        <i class="fas fa-location-arrow"></i> Use Current Location
+                    </button>
+                </div>
+                
+                <button type="submit" class="form-submit">
+                    <i class="fas fa-paper-plane"></i> Submit Rescue Report
+                </button>
+            </form>
+        </div>
+        
+        <div class="emergency-section">
+            <h2 class="section-title"><i class="fas fa-phone-alt"></i> Emergency Contacts</h2>
+            <div class="emergency-contacts">
+                <div class="contact-card">
+                    <h3 class="contact-name">Animal Rescue Hotline</h3>
+                    <div class="contact-info">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <span>1-800-555-ANIMAL</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-globe contact-icon"></i>
+                        <span>www.animalrescue.org</span>
+                    </div>
+                    <a href="tel:18005552645" class="action-button">Call Now</a>
+                </div>
+                
+                <div class="contact-card">
+                    <h3 class="contact-name">Wildlife Rescue</h3>
+                    <div class="contact-info">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <span>1-800-WILD-HELP</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-globe contact-icon"></i>
+                        <span>www.wildliferescue.net</span>
+                    </div>
+                    <a href="tel:18009454357" class="action-button">Call Now</a>
+                </div>
+                
+                <div class="contact-card">
+                    <h3 class="contact-name">24/7 Vet Emergency</h3>
+                    <div class="contact-info">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <span>1-800-VET-HELP</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-globe contact-icon"></i>
+                        <span>www.emergencyvet.com</span>
+                    </div>
+                    <a href="tel:18008384357" class="action-button">Call Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="guide-section">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> Rescue Guide</h2>
+            <ul class="guide-steps">
+                <li>
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Assess the Situation</h3>
+                        <p class="step-desc">Check if the animal is truly in distress. Some animals may not need intervention.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Ensure Your Safety</h3>
+                        <p class="step-desc">Approach carefully. Injured animals may bite or scratch out of fear.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Contain the Animal</h3>
+                        <p class="step-desc">Use a blanket or carrier to safely transport the animal if possible.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Contact Professionals</h3>
+                        <p class="step-desc">Reach out to local animal control, wildlife rehabilitators, or vets.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="resources-section">
+            <h2 class="section-title"><i class="fas fa-link"></i> Additional Resources</h2>
+            <div class="resource-list">
+                <div class="resource-card">
+                    <h3 class="resource-title">First Aid for Animals</h3>
+                    <p>Basic first aid techniques for common animal emergencies.</p>
+                    <a href="#" class="resource-link">Learn More →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3 class="resource-title">Finding Local Shelters</h3>
+                    <p>Directory of animal shelters and rescue organizations.</p>
+                    <a href="#" class="resource-link">Find Shelters →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3 class="resource-title">Wildlife Rehabilitation</h3>
+                    <p>How to help injured wildlife and find rehabilitators.</p>
+                    <a href="#" class="resource-link">Wildlife Help →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3 class="resource-title">Become a Volunteer</h3>
+                    <p>Opportunities to help animals in your community.</p>
+                    <a href="#" class="resource-link">Get Involved →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        &copy; 2023 Voice for the Voiceless. All rights reserved.
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Parallax effect on scroll
+            window.addEventListener('scroll', function() {
+                const scrollY = window.scrollY;
+                const paws = document.querySelectorAll('.paw-print');
+                
+                paws.forEach((paw, index) => {
+                    const speed = 0.1 + (index * 0.05);
+                    const yPos = -(scrollY * speed);
+                    paw.style.transform = `translateY(${yPos}px) rotate(${scrollY * 0.1}deg)`;
+                });
+            });
+
+            // Form submission handler
+            document.getElementById('rescueForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const animalType = document.getElementById('animalType').value;
+                const situation = document.getElementById('situation').value;
+                const address = document.getElementById('address').value;
+                const city = document.getElementById('city').value;
+                const state = document.getElementById('state').value;
+                const zip = document.getElementById('zip').value;
+                const urgency = document.getElementById('urgency').value;
+                const contactInfo = document.getElementById('contactInfo').value;
+                
+                // Here you would typically send this data to a server
+                console.log('Rescue Report Submitted:', {
+                    animalType,
+                    situation,
+                    location: { address, city, state, zip },
+                    urgency,
+                    contactInfo
+                });
+                
+                // Show success message
+                alert('Thank you for your rescue report! Our team will review it and take appropriate action.');
+                
+                // Reset form
+                this.reset();
+            });
+        });
+
+        // Geolocation function
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        
+                        // Update the map container (in a real app, you'd show an actual map)
+                        const mapContainer = document.querySelector('.map-container');
+                        mapContainer.innerHTML = `
+                            <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: var(--primary);"></i>
+                            <span style="margin-left: 0.5rem;">Location found: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}</span>
+                        `;
+                        
+                        // In a real application, you would:
+                        // 1. Display an actual map using Google Maps or similar API
+                        // 2. Reverse geocode to get address information
+                        // 3. Possibly auto-fill some of the address fields
+                    },
+                    function(error) {
+                        alert('Error getting location: ' + error.message);
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        }
+    </script>
+</body>
+</html>
